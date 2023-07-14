@@ -5,7 +5,7 @@ function createMachine(stateMachineDefinition) {
     // initialize actions and transitions
     for (const [state, definition] of Object.entries(stateMachineDefinition)) {
         actions[state] = definition.actions || {};
-        transitions[state] = definition.transition || {};
+        transitions[state] = definition.transitions || {};
     }
 
     return {
@@ -17,7 +17,6 @@ function createMachine(stateMachineDefinition) {
         transition(action) {
             const current = this.currentState;
             const transitionData = this.transitions[current][action];
-
             // check if transition is defined
             if (!transitionData) {
                 console.error(`Invalid transition from state ${current} with action ${action}`);
@@ -38,7 +37,6 @@ function createMachine(stateMachineDefinition) {
 
             this.currentState = target;
             this.value = target;
-            console.log('target', target);
             return this.value;
         },
     };
